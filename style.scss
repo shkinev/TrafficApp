@@ -1,0 +1,99 @@
+/*VARIABLES*/
+/*color*/
+$green: rgb(20, 182, 79);
+
+$first-color: rgb(59, 191, 103);
+$title-color: rgb(18, 59, 31);
+$text-color: rgb(79, 100, 86);
+$text-color-light: rgb(155, 176, 162);
+$white-color: rgb(255, 255, 255);
+$body-color: rgb(236, 243, 238);
+
+$dark-title-color: rgb(241, 244, 242);
+$dark-text-color: rgb(184, 199, 192);
+$dark-body-color: rgb(37, 45, 41);
+/*color*/
+
+/*Fonts*/
+$font: 'Poppins', Arial, Helvetica, sans-serif;
+
+$biggest-font: 48px;
+$small-font: 13px;
+$smaller-font: 12px;
+$tiny-font: 10px;
+
+$font-medium: 500;
+/*Fonts*/
+/*VARIABLES*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: $font;
+  line-height: 1;
+}
+body {
+  background-image: url(bgc.jpg);
+}
+.main {
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  max-width: 600px;
+  //background-color: $dark-body-color;
+  text-align: center;
+  font-size: 20px;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+
+  //border: 2px solid $dark-body-color;
+  color: $dark-text-color;
+
+}
+
+.head {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.body {
+  font-size: 71px;
+  margin-bottom: 40px;
+}
+.direction {
+  &__body {
+    color: $first-color
+  }
+}
+.interval {
+  &__body {
+    font-size: 60px;
+  }
+}
+
+.timer {
+  display: flex;
+  justify-content: space-around;
+  max-width: 200px;
+  margin: auto;
+  margin-bottom: 40px;
+  font-size: 40px;
+  height: max-content;
+}
+
+.remaining {
+  &__head {
+    font-size: 20px;
+  }
+}
+
+.future {
+  &__head {
+    font-size: 20px;
+  }
+  &__body, &__direct {
+    margin-bottom: 10px;
+    font-size: 30px;
+  }
+}
