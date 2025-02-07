@@ -1,75 +1,118 @@
-const direction = document.querySelector('.direction__body');
-const interval = document.querySelector('.interval__body');
-const hoursText = document.querySelector('.timer__hour');
-const minutesText = document.querySelector('.timer__minute');
-const secondsText = document.querySelector('.timer_second');
-const separators = document.querySelector('.timer__separator');
-const future = document.querySelector('.future__body');
-const futuredir = document.querySelector('.future__direct');
-const currentTime = document.querySelector('.current');
-
-const times = {
-    left: {
-        direct: 'С левого берега',
-        start: ["05:00:00", "09:30:00", "12:15:00", "15:00:00", "19:45:00", "21:15:00"],
-        end: ["08:30:00", "11:00:00", "13:45:00", "16:30:00", "20:30:00", "23:00:00"]
-    },
-    right: {
-        direct: 'С правого берега',
-        start: ["08:30:00", "11:00:00", "13:45:00", "16:30:00", "20:30:00", "23:00:00"],
-        end: ["09:30:00", "12:15:00", "15:00:00", "19:45:00", "21:15:00", "05:00:00"]
-    }
+function getCurrentTime() {
+    const now = new Date();
+    return now.toTimeString().split(' ')[0]; // Формат HH:MM:SS
 }
 
+function parseTime(timeString) {
+    const [hours, minutes, seconds] = timeString.split(':').map(Number);
+    return new Date(0, 0, 0, hours, minutes, seconds);
+}
 
+function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600).toString().padStart(2, '0');
+    const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+    const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+    return `${hours}:${minutes}:${secs}`;
+}
 
-function date() {
-    const date = new Date();
+function getIntervalInfo(directionData, currentTime) {
+    for (let interval of directionData.intervals) {
+        const startTime = parseTime(interval.start);
+        const endTime = parseTime(interval.end);
+        const now = parseTime(currentTime);
 
-
-
-    for (let i= 0; i<=times.left.end.length-1; i++) {
-        if (times.left.start[i] < date.toLocaleTimeString() && date.toLocaleTimeString() < times.left.end[i]) {
-            direction.innerHTML = times.left.direct;
-            interval.innerHTML = `${times.left.start[i]} - ${times.left.end[i]}`;
-            hoursText.innerHTML = times.left.start[i]
-            future.innerHTML = `${times.right.start[i]} - ${times.right.end[i]}`
-            futuredir.innerHTML = times.right.direct;
-
-            let dateEnd = new Date();
-            dateEnd.setHours(times.left.end[i].split(":")[0]);
-            dateEnd.setMinutes(times.left.end[i].split(":")[1]);
-            dateEnd.setSeconds(times.left.end[i].split(":")[2]);
-
-            const dateRemaning = new Date()
-            dateRemaning.setHours(dateEnd.getHours()-date.getHours());
-            dateRemaning.setMinutes(dateEnd.getMinutes()-date.getMinutes());
-            dateRemaning.setSeconds(dateEnd.getSeconds()-date.getSeconds());
-            hoursText.innerHTML = dateRemaning.getHours();;
-            minutesText.innerHTML = `${dateRemaning.getMinutes() >= 10 ? dateRemaning.getMinutes() : '0' + dateRemaning.getMinutes()}`;
-            secondsText.innerHTML = `${dateRemaning.getSeconds() >= 10 ? dateRemaning.getSeconds() : '0' + dateRemaning.getSeconds()}`;
-
-        } else if (times.right.start[i] < date.toLocaleTimeString() && date.toLocaleTimeString() < times.right.end[i]) {
-            direction.innerHTML = times.right.direct;
-            interval.innerHTML = `${times.right.start[i]} - ${times.right.end[i]}`;
-            future.innerHTML = `${times.left.start[i+1 >= 6 ? 0 : i+1]} - ${times.left.end[i+1 >= 6 ? 0 : i+1]}`
-            futuredir.innerHTML = times.left.direct;
-
-            let dateEnd = new Date();
-            dateEnd.setHours(times.right.end[i].split(":")[0]);
-            dateEnd.setMinutes(times.right.end[i].split(":")[1]);
-            dateEnd.setSeconds(times.right.end[i].split(":")[2]);
-
-            const dateRemaning = new Date()
-            dateRemaning.setHours(dateEnd.getHours()-date.getHours());
-            dateRemaning.setMinutes(dateEnd.getMinutes()-date.getMinutes());
-            dateRemaning.setSeconds(dateEnd.getSeconds()-date.getSeconds());
-            hoursText.innerHTML = dateRemaning.getHours();
-            minutesText.innerHTML = `${dateRemaning.getMinutes() >= 10 ? dateRemaning.getMinutes() : '0' + dateRemaning.getMinutes()}`;
-            secondsText.innerHTML = `${dateRemaning.getSeconds() >= 10 ? dateRemaning.getSeconds() : '0' + dateRemaning.getSeconds()}`;
+        if (now >= startTime && now <= endTime) {
+            return { currentInterval: interval, remainingTime: (endTime - now) / 1000 };
         }
     }
+    return null;
+}
 
-    // currentTime.innerHTML = `Последнее обновление в ${hh >= 10 ? hh : '0'+ hh}:${mm >= 10 ? mm : '0'+ mm}:${ss >= 10 ? ss : '0'+ ss}. <br>Обновление раз в 15 минут.<br>Либо обновите страницу`;
+function getNextInterval(directionData, currentTime) {
+    const now = parseTime(currentTime);
+    const sortedIntervals = directionData.intervals.map(interval => ({
+        ...interval,
+        startTime: parseTime(interval.start)
+    })).sort((a, b) => a.startTime - b.startTime);
+
+    for (let interval of sortedIntervals) {
+        if (parseTime(interval.start) > now) {
+            return interval;
+        }
     }
-setInterval(date, 1000);
+    return sortedIntervals[0]; // Если текущего интервала нет, возвращаем первый
+}
+
+function updateTrafficSignalInfo() {
+    const data = {
+        left: {
+            direct: 'С левого берега',
+            intervals: [
+                { start: "05:00:00", end: "08:30:00" },
+                { start: "09:30:00", end: "11:00:00" },
+                { start: "12:15:00", end: "13:45:00" },
+                { start: "15:00:00", end: "16:30:00" },
+                { start: "19:45:00", end: "20:30:00" },
+                { start: "21:15:00", end: "23:00:00" }
+            ]
+        },
+        right: {
+            direct: 'С правого берега',
+            intervals: [
+                { start: "08:30:00", end: "09:30:00" },
+                { start: "11:00:00", end: "12:15:00" },
+                { start: "13:45:00", end: "15:00:00" },
+                { start: "16:30:00", end: "19:45:00" },
+                { start: "20:30:00", end: "21:15:00" },
+                { start: "23:00:00", end: "23:59:59" },
+                { start: "00:00:00", end: "05:00:00" }
+            ]
+        }
+    };
+
+    const currentTime = getCurrentTime();
+    let currentDirection = null;
+    let currentIntervalInfo = null;
+    let futureDirection = null;
+    let futureInterval = null;
+
+    const leftInfo = getIntervalInfo(data.left, currentTime);
+    const rightInfo = getIntervalInfo(data.right, currentTime);
+
+    if (leftInfo) {
+        currentDirection = data.left.direct;
+        currentIntervalInfo = leftInfo;
+        futureDirection = data.right.direct;
+        futureInterval = getNextInterval(data.right, currentTime);
+    } else if (rightInfo) {
+        currentDirection = data.right.direct;
+        currentIntervalInfo = rightInfo;
+        futureDirection = data.left.direct;
+        futureInterval = getNextInterval(data.left, currentTime);
+    }
+
+    // Объединяем интервалы "23:00:00 - 23:59:59" и "00:00:00 - 05:00:00"
+    if (currentIntervalInfo && (currentIntervalInfo.currentInterval.start === "23:00:00" || currentIntervalInfo.currentInterval.start === "00:00:00")) {
+        currentIntervalInfo.currentInterval = { start: "23:00:00", end: "05:00:00" };
+    }
+    if (futureInterval && (futureInterval.start === "23:00:00" || futureInterval.start === "00:00:00")) {
+        futureInterval = { start: "23:00:00", end: "05:00:00" };
+    }
+
+    // Если активен интервал "23:00:00 - 23:59:59", добавляем 5 часов к таймеру
+    let remainingTime = currentIntervalInfo ? currentIntervalInfo.remainingTime : 0;
+    let now2 = new Date();
+    if (now2.toLocaleTimeString() >= "23:00:00" && now2.toLocaleTimeString() <= "23:59:59") {
+        remainingTime += 5 * 3600;
+    }
+
+    // Обновляем интерфейс
+    document.querySelector('.direction__body').textContent = currentDirection || 'Нет активного направления';
+    document.querySelector('.interval__body').textContent = currentIntervalInfo ? `${currentIntervalInfo.currentInterval.start} - ${currentIntervalInfo.currentInterval.end}` : 'Нет активного интервала';
+    document.querySelector('.timer').textContent = currentIntervalInfo ? formatTime(remainingTime) : 'N/A';
+    document.querySelector('.future__direct').textContent = futureDirection || 'Нет информации';
+    document.querySelector('.future__body').textContent = futureInterval ? `${futureInterval.start} - ${futureInterval.end}` : 'Нет информации';
+}
+
+// Обновляем информацию каждую секунду
+setInterval(updateTrafficSignalInfo, 1000);

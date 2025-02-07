@@ -1,72 +1,130 @@
-/*VARIABLES*/
-/*color*/
-/*color*/
-/*Fonts*/
-/*Fonts*/
-/*VARIABLES*/
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  font-family: "Poppins", Arial, Helvetica, sans-serif;
-  line-height: 1;
-}
-
+@import url("https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;600&display=swap");
 body {
-  background-image: url(bgc.jpg);
+  font-family: "SF Pro Display", sans-serif;
+  background: linear-gradient(135deg, #1e1e2f, #333344);
+  color: #e0e0e0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .main {
-  align-items: center;
-  height: 100vh;
-  width: 100%;
+  background: #2b2b3a;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   max-width: 600px;
-  text-align: center;
-  font-size: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.container {
   display: flex;
-  margin: 0 auto;
-  justify-content: center;
-  color: rgb(184, 199, 192);
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
 }
 
 .head {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-weight: 600;
+  color: #bbbbbb;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
 }
 
 .body {
-  font-size: 71px;
-  margin-bottom: 40px;
-}
-
-.direction__body {
-  color: rgb(59, 191, 103);
-}
-
-.interval__body {
-  font-size: 60px;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #ffffff;
+  background: #3b3b4d;
+  border-radius: 12px;
+  padding: 18px 24px;
+  text-align: center;
+  word-break: break-word;
+  max-width: 90%;
 }
 
 .timer {
   display: flex;
-  justify-content: space-around;
-  max-width: 200px;
-  margin: auto;
-  margin-bottom: 40px;
-  font-size: 40px;
-  height: max-content;
+  justify-content: center;
+  gap: 4px;
+  background: #444455;
+  border-radius: 16px;
+  padding: 14px;
 }
 
-.remaining__head {
-  font-size: 20px;
+.hour, .minute, .second {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #00baff;
 }
 
-.future__head {
-  font-size: 20px;
+.separator {
+  font-size: 1.75rem;
+  color: #bbbbbb;
 }
-.future__body, .future__direct {
-  margin-bottom: 10px;
-  font-size: 30px;
+
+.direction, .interval {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.direction__body, .interval__body {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #00baff;
+  background: #50506a;
+  padding: 20px 24px;
+  border-radius: 16px;
+}
+
+.future__body {
+  color: #ff6b6b;
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    padding: 24px;
+  }
+  .body {
+    font-size: 1.25rem;
+    padding: 12px 16px;
+  }
+  .timer {
+    padding: 10px;
+  }
+  .hour, .minute, .second {
+    font-size: 1.5rem;
+  }
+  .head {
+    font-size: 0.85rem;
+  }
+}
+@media screen and (max-width: 480px) {
+  .main {
+    padding: 16px;
+  }
+  .container {
+    gap: 16px;
+  }
+  .timer {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hour, .minute, .second {
+    font-size: 1.25rem;
+  }
+  .separator {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
