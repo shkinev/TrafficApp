@@ -52,7 +52,7 @@ function updateTrafficSignalInfo() {
                 { start: "09:30:00", end: "11:00:00" },
                 { start: "12:15:00", end: "13:45:00" },
                 { start: "15:00:00", end: "16:30:00" },
-                { start: "19:45:00", end: "20:30:00" },
+                { start: "19:20:00", end: "20:30:00" },
                 { start: "21:15:00", end: "23:00:00" }
             ]
         },
@@ -62,7 +62,7 @@ function updateTrafficSignalInfo() {
                 { start: "08:30:00", end: "09:30:00" },
                 { start: "11:00:00", end: "12:15:00" },
                 { start: "13:45:00", end: "15:00:00" },
-                { start: "16:30:00", end: "19:45:00" },
+                { start: "16:30:00", end: "19:20:00" },
                 { start: "20:30:00", end: "21:15:00" },
                 { start: "23:00:00", end: "23:59:59" },
                 { start: "00:00:00", end: "05:00:00" }
