@@ -128,3 +128,64 @@ body {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+/* Стили для контейнера таблицы */
+.table-container {
+  margin-top: 40px; /* Отступ сверху */
+  max-width: 600px; /* Ограничение ширины */
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto; /* Центрирование */
+}
+
+/* Заголовок таблицы */
+.table-container h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* Общие стили для таблицы */
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #3b3b4d;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Стили для заголовков таблицы */
+.schedule-table th {
+  background: #444455;
+  color: #bbbbbb;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+/* Стили для строк таблицы */
+.schedule-table td {
+  color: #e0e0e0;
+  font-size: 1.5rem;
+  padding: 12px 16px;
+  border-bottom: 1px solid #444455;
+}
+
+/* Чередование цветов строк */
+.schedule-table tr:nth-child(even) td {
+  background: #333344;
+}
+
+/* Hover-эффект для строк */
+.schedule-table tr:hover td {
+  background: #50506a;
+}
