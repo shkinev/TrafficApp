@@ -30,64 +30,84 @@
     <!-- /Yandex.Metrika counter -->    
 </head>
 <body>
-<div class="current" style="color:white"></div>
-<div class="main">
-    <div class="container">
-        <div class="direction">
-            <div class="direction__head head">Текущее направление</div>
-            <div class="direction__body body">------</div>
+      
+  
+    <div class="current" style="color:white"></div>
+    <div class="main">
+        <div class="container">
+            <!-- Заголовок H1 (обязательно для SEO) -->
+            <h1>Реверсивное движение на мосту 60 лет ВЛКСМ в Омске</h1>
+
+            <div class="direction">
+                <div class="direction__head head">Текущее направление</div>
+                <div class="direction__body body">------</div>
+            </div>
+            <div class="interval">
+                <div class="interval__head head">
+                    Текущий интервал
+                </div>
+                <div class="interval__body body">
+                    --:-- - --:--
+                </div>
+            </div>
+            <div class="remaining">
+                <div class="remaining__head head">
+                    До смены направления осталось
+                </div>
+                <div class="remaining__body body timer">
+                    <div class="timer__hour hour">--</div>
+                    <div class="timer__separator separator">:</div>
+                    <div class="timer__minute minute">--</div>
+                    <div class="timer__separator separator">:</div>
+                    <div class="timer_second second">--</div>
+                </div>
+            </div>
+            <div class="future">
+                <div class="future__head head">
+                    Следующий интервал
+                </div>
+                <div class="future__direct body">
+                    ------
+                </div>
+                <div class="future__body body">
+                    --:-- - --:--
+                </div>
+            </div>
+            <!-- Table Section -->
+            <div class="table-container">
+                <h2>Расписание работы моста</h2>
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Направление</th>
+                            <th>Интервал</th>
+                        </tr>
+                    </thead>
+                    <tbody id="schedule-body">
+                        <!-- Rows will be dynamically populated here -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- Краткое описание моста и функции реверсивного движения -->
+            <div class="info">
+                <p>
+                    Статус реверсивного движения на мосту «60 лет ВЛКСМ» в режиме реального времени.
+                    Мост также известен как мост у телецентра, мост в Нефтяниках или мост на Зозерной.
+                    Проверяйте направление перед поездкой, чтобы избежать заторов.
+                </p>
+            </div>            
         </div>
-        <div class="interval">
-            <div class="interval__head head">
-                Текущий интервал
-            </div>
-            <div class="interval__body body">
-                --:-- - --:--
-            </div>
-        </div>
-        <div class="remaining">
-            <div class="remaining__head head">
-                До смены направления осталось
-            </div>
-            <div class="remaining__body body timer">
-                <div class="timer__hour hour">--</div>
-                <div class="timer__separator separator">:</div>
-                <div class="timer__minute minute">--</div>
-                <div class="timer__separator separator">:</div>
-                <div class="timer_second second">--</div>
-            </div>
-        </div>
-        <div class="future">
-            <div class="future__head head">
-                Следующий интервал
-            </div>
-            <div class="future__direct body">
-                ------
-            </div>
-            <div class="future__body body">
-                --:-- - --:--
-            </div>
-        </div>
-        <!-- Table Section -->
-        <div class="table-container">
-            <h2>Расписание работы моста</h2>
-            <table class="schedule-table">
-                <thead>
-                    <tr>
-                        <th>Направление</th>
-                        <th>Интервал</th>
-                    </tr>
-                </thead>
-                <tbody id="schedule-body">
-                    <!-- Rows will be dynamically populated here -->
-                </tbody>
-            </table>
-        </div>        
     </div>
-</div>
 
 
 
-<script src="bridge.js"></script>
+
+    <!-- Дополнительные ключевые слова в скрытом виде (можно опустить, если не нужно) -->
+    <div style="display:none;">
+    реверсивное движение омск, мост 60 лет влксм, мост у телецентра, нефтяники мост, мост на зозерной, 
+    пробки омск, движение по мосту, трафик омск, ремонт моста омск
+    </div>
+
+    <script src="bridge.js"></script>
 </body>
 </html>
